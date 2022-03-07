@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Trip>
+
+@{
+    ViewBag.Title = "My Trip Log";
+}
+
+    @*Change the Sort order to StartDate and remove the paragraph from the view*@  
+    @*Look in the HomeController for help about how to do this*@ 
+    @*Enter data into the TripLog database to verify the changes*@ 
+    <p style="color:red;"> Change the sort order to StartDate and remove this comment </>
+    <p> </p>
+    
+    @*When the user clicks ""Add Trip"" on the Home page, the app routes to the
+        Trip controller Add action.
+        <a is an anchor that creates the URL for routing; No id parameter *@
+
+    <a  style="color:blue;" asp-action="Add" asp-controller="Trip" class="mt-2"><b>Add Trip</b></a>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Destination</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Accommodations</th>
+                <th>Things To Do</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Trip trip in Model)
+            {
+                <tr>
+                    <td>@trip.Destination</td>
+                    <td>@trip.StartDate?.ToShortDateString()</td>
+                    <td>@trip.EndDate?.ToShortDateString()</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(trip.Accommodation))
+                        {
+                            <div>@trip.Accommodation</div>
+                            @if (!string.IsNullOrEmpty(trip.AccommodationPhone))
+                            {
+                                <div>Phone: @trip.AccommodationPhone</div>
+                            }
+                            @if (!string.IsNullOrEmpty(trip.AccommodationEmail))
+                            {
+                                <div>Email: @trip.AccommodationEmail</div>
+                            }
+                        }
+                    </td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(trip.ThingToDo1))
+                        {
+                            <div>@trip.ThingToDo1</div>
+                        }
+                        @if (!string.IsNullOrEmpty(trip.ThingToDo2))
+                        {
+                            <div>@trip.ThingToDo2</div>
+                        }
+                        @if (!string.IsNullOrEmpty(trip.ThingToDo3))
+                        {
+                            <div>@trip.ThingToDo3</div>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
